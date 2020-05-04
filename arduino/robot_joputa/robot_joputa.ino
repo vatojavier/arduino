@@ -4,9 +4,8 @@
 
 Servo servo;
 
-int incomingByte = 0; // for incoming serial data
 int numero = -1;
-int bytes[20];
+int angulo;
 
 String string;
 
@@ -28,11 +27,11 @@ void setup() {
 void loop() {
   string = leer_string();
   numero = string.toInt();
-  Serial.print("--->");
-  Serial.println(numero,DEC);
+//  Serial.print("--->");
+//  Serial.println(numero,DEC);
 
   if(numero > 0 && numero < 480){
-    int angulo = map(numero, 0, 480,1, 157);
+    angulo = map(numero, 0, 480,1, 157);
     servo.write(angulo);
   }
 }
