@@ -13,19 +13,21 @@ cap = cv2.VideoCapture(0)
 face_cascade = cv2.CascadeClassifier('/home/javi/Desktop/OpenCV-tmp/opencv-3/data/haarcascades/'
                                      'haarcascade_frontalface_default.xml')
 
-ser = serial.Serial('/dev/ttyACM0', write_timeout=0)
+ser = serial.Serial('/dev/ttyACM0', baudrate=9600)
 
 string = ''
 
 prueba = 280
 pm_x = 100
 pm_y = 100
+string_x = ''
 
 while True:
 
     try:
         # Capture frame-by-frame
         ret, frame = cap.read()
+        print(ret)
 
         # Our operations on the frame come here
         gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
@@ -42,12 +44,8 @@ while True:
             pm_x, pm_y = punto_medio(x, y, w, h)
 
             print(str(pm_x) + "\t" + str(pm_y) + "\n")
-
-        if pm_x > 0 or pm_x < 600:
-            #ser.write(pm_x.to_bytes(2, 'big'))
-            string += str(pm_x)
-            ser.write(bytes(string, 'utf-8'))
-            ser.flush()
+            string_x = str(pm_x)
+            ser.write(string_x.encode('utf-8'))
 
         # Display the resulting frame
         cv2.imshow('img', frame)

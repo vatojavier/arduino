@@ -1,6 +1,5 @@
 #include <Servo.h>
 #define PIN_SERVO 9
-#define READ_TIMEOUT 10
 
 Servo servo;
 
@@ -21,7 +20,7 @@ void setup() {
   while(!Serial){
     ;
   }
-  Serial.setTimeout(READ_TIMEOUT);
+  Serial.setTimeout(20);
   servo.write(1);
 }
 
