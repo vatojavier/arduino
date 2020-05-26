@@ -1,3 +1,6 @@
+# Motion dection using static camera, and arduino communication, part of the code thanks to
+# https://github.com/arturkuchynski/motion-detection
+
 from imutils.video import VideoStream
 from datetime import datetime
 import cv2
