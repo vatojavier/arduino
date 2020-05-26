@@ -1,13 +1,8 @@
-#include <Servo.h>
-#define PIN_SERVO 9
-
-Servo servo;
-
-int incomingByte = 0; // for incoming serial data
-int numero = -1;
-int bytes[20];
-
 String string;
+char cadena[10];
+char * pch;
+
+int numero;
 
 String leer_string(){
   string = Serial.readString();
@@ -15,23 +10,24 @@ String leer_string(){
 }
 
 void setup() {
-  servo.attach(PIN_SERVO);
+  pinMode(LED_BUILTIN, OUTPUT);
   Serial.begin(9600);
   while(!Serial){
     ;
   }
-  Serial.setTimeout(20);
-  servo.write(1);
+  Serial.setTimeout(2);
 }
 
 void loop() {
-  string = leer_string();
-  numero = string.toInt();
-  Serial.print("--->");
-  Serial.println(numero,DEC);
+    
+   if(Serial.available() > 0){
+        string = leer_string();
+        numero = string.toInt();
 
-  if(numero > 0 && numero < 480){
-    int angulo = map(numero, 0, 480,1, 157);
-    servo.write(angulo);
-  }
+          digitalWrite(LED_BUILTIN, HIGH);   // turn the LED on (HIGH is the voltage level)
+          delay(numero);                       // wait for a second
+          digitalWrite(LED_BUILTIN, LOW);    // turn the LED off by making the voltage LOW
+          delay(numero);                       // wait for a 
+    }
+    
 }
